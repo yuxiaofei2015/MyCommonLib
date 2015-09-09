@@ -76,7 +76,7 @@ public class AppDebug {
 					method.invoke(null, tag, content.substring(currentPosition, currentPosition + lengthPerLine)
 							+ " <");
 				} else {
-					method.invoke(null, tag, content.substring(currentPosition) + " <");
+					method.invoke(null, tag, content.substring(currentPosition) + " $");
 				}
 				currentPosition += lengthPerLine;
 			}

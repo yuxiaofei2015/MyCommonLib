@@ -1,5 +1,7 @@
 package yxf.com.mycommonlib.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author yxf
  * @date 15-9-9
@@ -9,8 +11,11 @@ package yxf.com.mycommonlib.entity;
  * @comment json数据基类
  */
 public abstract class JsonBase<T> {
+	@SerializedName("c")
 	private int c;
+	@SerializedName("d")
 	private T data;
+	@SerializedName("m")
 	private String msg;
 
 	public int getCode() {

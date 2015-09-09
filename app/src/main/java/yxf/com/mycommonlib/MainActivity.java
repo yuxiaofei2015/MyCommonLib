@@ -1,16 +1,29 @@
 package yxf.com.mycommonlib;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import yxf.com.mycommonlib.NetWork.Config;
+import yxf.com.mycommonlib.NetWork.volley.AppRequestQueue;
+import yxf.com.mycommonlib.NetWork.volley.OnResponseListener;
+import yxf.com.mycommonlib.NetWork.volley.RequestJson;
+import yxf.com.mycommonlib.debug.AppDebug;
+import yxf.com.mycommonlib.entity.json.JsonTest;
+
+public class MainActivity extends AppCompatActivity implements Response.ErrorListener, OnResponseListener<JsonTest> {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		RequestJson<JsonTest> requestJson = new RequestJson<JsonTest>(Config.URL.TEST_JSON, JsonTest.class, this,
+				this);
+		AppRequestQueue.add(requestJson);
 	}
 
 	@Override
@@ -33,5 +46,15 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onErrorResponse(VolleyError volleyError) {
+
+	}
+
+	@Override
+	public void onResponse(JsonTest response) {
+		AppDebug.LOG_D(this, response);
 	}
 }

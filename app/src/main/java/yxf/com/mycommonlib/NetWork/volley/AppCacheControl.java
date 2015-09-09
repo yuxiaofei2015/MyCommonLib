@@ -14,9 +14,13 @@ import com.android.volley.toolbox.HttpHeaderParser;
  */
 public class AppCacheControl extends HttpHeaderParser {
 
-	public static Cache.Entry getCacheControl(NetworkResponse response) {
+	public static Cache.Entry getCacheControl(NetworkResponse response, long cacheTime) {
 		Cache.Entry entry = parseCacheHeaders(response);
 		final long now = System.currentTimeMillis();
+		//一分钟之后刷新一次
+		entry.softTtl = now + 60 * 1000;
+		//cacheTime之后过期
+		entry.ttl = now + cacheTime;
 		return entry;
 	}
 }

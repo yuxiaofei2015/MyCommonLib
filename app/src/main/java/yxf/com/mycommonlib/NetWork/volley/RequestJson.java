@@ -9,8 +9,8 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-import yxf.com.mycommonlib.debug.AppDebug;
 import yxf.com.mycommonlib.NetWork.json.GsonGlobal;
+import yxf.com.mycommonlib.debug.AppDebug;
 
 /**
  * @author yxf
@@ -21,14 +21,17 @@ import yxf.com.mycommonlib.NetWork.json.GsonGlobal;
  * @comment Json格式请求类
  */
 public class RequestJson<T> extends Request<T> {
+	private static long DEFAULT_CACHETIME = 2 * 60 * 1000;//默认缓存时间
 	Map<String, String> mParams;
 	Class<T> mType;
 	OnResponseListener<T> mResponseListener;
+	private long mCacheTime = DEFAULT_CACHETIME;
 
 	public RequestJson(String url, Class<T> type,
 	                   OnResponseListener<T> respListener,
 	                   Response.ErrorListener errListener) {
 		this(Method.GET, url, type, null, respListener, errListener);
+
 	}
 
 	public RequestJson(String url, Class<T> type, Map<String, String> param,
@@ -45,6 +48,14 @@ public class RequestJson<T> extends Request<T> {
 		mParams = param;
 		mResponseListener = respListener;
 		mType = type;
+	}
+
+	public void setCacheTime(long cacheTime) {
+		mCacheTime = cacheTime;
+	}
+
+	public long getCacheTime() {
+		return mCacheTime;
 	}
 
 	@Override
@@ -78,7 +89,7 @@ public class RequestJson<T> extends Request<T> {
 		} catch (AuthFailureError authFailureError) {
 			authFailureError.printStackTrace();
 		}
-		return Response.success(obj, AppCacheControl.getCacheControl(response));
+		return Response.success(obj, AppCacheControl.getCacheControl(response, getCacheTime()));
 	}
 
 	@Override

@@ -20,6 +20,7 @@ public class AppRequestQueue {
 
 	public static void init(Context context) {
 		mRequestQueue = Volley.newRequestQueue(context);
+		mRequestQueue.start();
 	}
 
 	public static void add(Request request) {

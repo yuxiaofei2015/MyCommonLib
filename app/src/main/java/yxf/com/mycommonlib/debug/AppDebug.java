@@ -18,14 +18,7 @@ public class AppDebug {
 
 	public static void LOG_D(Object obj, Object... args) {
 		if (DEBUG) {
-			String TAG;
-			if (obj == null) {
-				TAG = "NULL";
-			} else if (obj instanceof String) {
-				TAG = (String) obj;
-			} else {
-				TAG = obj.getClass().getSimpleName();
-			}
+			String TAG = genTagString(obj);
 			final String msg = genMessageString(args);
 			LOG(Log.DEBUG, TAG, msg);
 		}
@@ -33,16 +26,17 @@ public class AppDebug {
 
 	public static void LOG_I(Object obj, Object... args) {
 		if (DEBUG) {
-			String TAG;
-			if (obj == null) {
-				TAG = "NULL";
-			} else if (obj instanceof String) {
-				TAG = (String) obj;
-			} else {
-				TAG = obj.getClass().getSimpleName();
-			}
+			String TAG = genTagString(obj);
 			final String msg = genMessageString(args);
 			LOG(Log.INFO, TAG, msg);
+		}
+	}
+
+	public static void LOG_E(Object obj, Object... args) {
+		if (DEBUG) {
+			String TAG = genTagString(obj);
+			final String msg = genMessageString(args);
+			LOG(Log.ERROR, TAG, msg);
 		}
 	}
 
@@ -93,6 +87,18 @@ public class AppDebug {
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static String genTagString(Object obj) {
+		String TAG;
+		if (obj == null) {
+			TAG = "NULL";
+		} else if (obj instanceof String) {
+			TAG = (String) obj;
+		} else {
+			TAG = obj.getClass().getSimpleName();
+		}
+		return TAG;
 	}
 
 	private static String genMessageString(Object... args) {

@@ -12,7 +12,7 @@ import com.android.volley.toolbox.Volley;
  * @time 下午6:12
  * updater xxx
  * update  yy-MM-dd
- * @comment balabalabala
+ * @comment 请求队列
  */
 public class AppRequestQueue {
 

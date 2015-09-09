@@ -31,7 +31,6 @@ public class RequestJson<T> extends Request<T> {
 	                   OnResponseListener<T> respListener,
 	                   Response.ErrorListener errListener) {
 		this(Method.GET, url, type, null, respListener, errListener);
-
 	}
 
 	public RequestJson(String url, Class<T> type, Map<String, String> param,

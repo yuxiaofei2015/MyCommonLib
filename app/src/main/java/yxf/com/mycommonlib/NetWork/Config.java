@@ -10,7 +10,7 @@ package yxf.com.mycommonlib.NetWork;
  */
 
 public class Config {
-	public static String LOCALHOST = "http:172.16.5.52/";
+	public static String LOCALHOST = "http://172.16.5.52/";
 
 	public static class URL {
 		public static final String TEST_JSON = LOCALHOST + "json_test.json";

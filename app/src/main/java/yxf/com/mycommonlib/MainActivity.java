@@ -4,12 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 
 import yxf.com.mycommonlib.NetWork.Config;
-import yxf.com.mycommonlib.NetWork.volley.AppRequestQueue;
 import yxf.com.mycommonlib.NetWork.volley.OnResponseListener;
 import yxf.com.mycommonlib.NetWork.volley.RequestJson;
 import yxf.com.mycommonlib.debug.AppDebug;
@@ -21,9 +22,13 @@ public class MainActivity extends AppCompatActivity implements Response.ErrorLis
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		RequestJson<JsonTest> requestJson = new RequestJson<JsonTest>(Config.URL.TEST_JSON, JsonTest.class, this,
-				this);
-		AppRequestQueue.add(requestJson);
+		AppDebug.LOG_D(this, Config.URL.TEST_JSON);
+		RequestJson<JsonTest> requestJson =
+				new RequestJson<JsonTest>(
+						Config.URL.TEST_JSON,
+						JsonTest.class,
+						this, this);
+		Volley.newRequestQueue(this).add(requestJson);
 	}
 
 	@Override
@@ -50,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements Response.ErrorLis
 
 	@Override
 	public void onErrorResponse(VolleyError volleyError) {
-
+		Toast.makeText(this, "Volley Error", Toast.LENGTH_SHORT).show();
+		AppDebug.LOG_E(this, volleyError.getMessage());
 	}
 
 	@Override
